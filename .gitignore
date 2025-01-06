@@ -1,2 +1,4 @@
 venv
 *.csv
+Shopee_scraper/
+Pipfile*

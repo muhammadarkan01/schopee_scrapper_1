@@ -59,7 +59,17 @@ def scrape_shopee_comments(shopid, userid, output_file):
             print(f"Fetching comments for rating {rating_type}, offset {offset}...")
             response_data = fetch_comments(shopid, userid, rating_type, offset)
 
-            if not response_data or 'data' not in response_data or not response_data['data']['items']:
+            """
+            Found Error when user ID is invalid.
+            TODO: Add validation for response_data, 
+            check if response_data is a dictionary, break immediately if not so user can change the user ID
+            """
+
+            if not isinstance(response_data, dict):
+                print(response_data)
+                break
+
+            if not response_data or 'data' not in response_data or not response_data['data']['items']: # TODO: Refactor this. Reason: too long.
                 print("No more comments to fetch.")
                 break
 
@@ -69,15 +79,17 @@ def scrape_shopee_comments(shopid, userid, output_file):
             offset += 100
             time.sleep(5)  
 
+    # TODO: Add error handling
     save_to_csv(comment_list, output_file)
 
 def main():
+    # Update the test cases
     shop_user_pairs = [
-        {'shop_id': 195455930, 'user_id': 195458863, 'output_file': "../Shopee_scrapper/comments_somethinc.csv"},
-        {'shop_id': 380285841, 'user_id': 380285841, 'output_file': "../Shopee_scrapper/comments_skintific.csv"},
-        {'shop_id': 255365082, 'user_id': 255366005, 'output_file': "../Shopee_scrapper/comments_scarlett.csv"},
-        {'shop_id': 62583853, 'user_id': 62585295, 'output_file': "../Shopee_scrapper/comments_ganier.csv"},
-        {'shop_id': 17566419, 'user_id': 17567755, 'output_file': "../Shopee_scrapper/comments_msglow.csv"}
+        {'shop_id': 195455930, 'user_id': 17567755, 'output_file': "Shopee_scrapper/comments_somethinc_195455930.csv"},
+        # {'shop_id': 380285841, 'user_id': 380285841, 'output_file': "../Shopee_scrapper/comments_skintific.csv"},
+        # {'shop_id': 255365082, 'user_id': 255366005, 'output_file': "../Shopee_scrapper/comments_scarlett.csv"},
+        # {'shop_id': 62583853, 'user_id': 62585295, 'output_file': "../Shopee_scrapper/comments_ganier.csv"},
+        # {'shop_id': 17566419, 'user_id': 17567755, 'output_file': "../Shopee_scrapper/comments_msglow.csv"}
     ]
 
     for pair in shop_user_pairs:

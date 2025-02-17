@@ -1,4 +1,5 @@
 venv
 *.csv
+*.log
 Shopee_scraper/
 Pipfile*

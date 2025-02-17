@@ -88,7 +88,7 @@ def scrape_shopee_comments(shopid, userid, output_file):
                 break
 
             # Check if the response contains valid data
-            if not response_data or 'data' not in response_data or not response_data['data'].get('items'):
+            if not response_data or 'data' not in response_data or not response_data['data'].get('items') or offset >= 1000:
                 logger.info(f"No more comments to fetch for rating type {rating_type}.")
                 break
 
@@ -109,12 +109,12 @@ def scrape_shopee_comments(shopid, userid, output_file):
 def main():
     # Update the test cases
     shop_user_pairs = [
-        {'shop_id': 195455930, 'user_id': 17567755, 'output_file': "Shopee_scrapper/comments_somethinc_195455930.csv"},
         # Uncomment or add more cases as needed
-        # {'shop_id': 380285841, 'user_id': 380285841, 'output_file': "Shopee_scrapper/comments_skintific.csv"},
-        # {'shop_id': 255365082, 'user_id': 255366005, 'output_file': "Shopee_scrapper/comments_scarlett.csv"},
-        # {'shop_id': 62583853, 'user_id': 62585295, 'output_file': "Shopee_scrapper/comments_ganier.csv"},
-        # {'shop_id': 17566419, 'user_id': 17567755, 'output_file': "Shopee_scrapper/comments_msglow.csv"}
+        # {'shop_id': 195455930, 'user_id': 17567755, 'output_file': "../shopee_scrapper/comments_somethinc.csv"},
+        # {'shop_id': 380285841, 'user_id': 380285841, 'output_file': "../shopee_scrapper/comments_skintific.csv"},
+        # {'shop_id': 255365082, 'user_id': 255366005, 'output_file': "../shopee_scrapper/comments_scarlett.csv"},
+         {'shop_id': 62583853, 'user_id': 62585295, 'output_file': "../shopee_scrapper/garnier_comments.csv"}
+        # {'shop_id': 17566419, 'user_id': 17567755, 'output_file': "../shopee_scrapper/comments_msglow.csv"}
     ]
 
     for pair in shop_user_pairs:
